@@ -1,46 +1,78 @@
-import { ShoppingCart, BookOpen, DollarSign, Heart, Building, Truck, Film, Gamepad2, Users, Zap, Blocks, Brain, Wifi, Shield, Factory, Plane, Utensils, GraduationCap, Car, Home, TreePine, Briefcase, Palette, Music } from "lucide-react";
+import {
+  ShoppingCart,
+  BookOpen,
+  DollarSign,
+  Heart,
+  Building,
+  Truck,
+  Film,
+  Users,
+  Blocks,
+  Brain,
+  Wifi,
+  Shield,
+  Factory,
+  Plane,
+  Utensils,
+  GraduationCap,
+  Car,
+  Home,
+  TreePine,
+  Briefcase,
+  Music,
+} from "lucide-react"
 
 export default function IndustrySolutions() {
   const industries = [
     {
       icon: ShoppingCart,
       title: "E-commerce",
-      description: "Transform shopping experiences with intelligent recommendations that boost sales by 40% and seamless omnichannel integration that keeps customers coming back.",
-      features: ["AI product recommendations", "Omnichannel integration", "Advanced analytics", "Global payment systems"],
+      description:
+        "Transform shopping experiences with intelligent recommendations that boost sales by 40% and seamless omnichannel integration that keeps customers coming back.",
+      features: [
+        "AI product recommendations",
+        "Omnichannel integration",
+        "Advanced analytics",
+        "Global payment systems",
+      ],
       growth: "35% YoY",
-      projects: "150+"
+      projects: "150+",
     },
     {
       icon: DollarSign,
       title: "Fintech",
-      description: "Build trust with bulletproof security, lightning-fast transactions, and automated compliance that keeps you ahead of regulations while reducing costs by 60%.",
+      description:
+        "Build trust with bulletproof security, lightning-fast transactions, and automated compliance that keeps you ahead of regulations while reducing costs by 60%.",
       features: ["Blockchain technology", "Automated compliance", "Real-time transactions", "Risk assessment AI"],
       growth: "42% YoY",
-      projects: "120+"
+      projects: "120+",
     },
     {
       icon: BookOpen,
       title: "Edutech",
-      description: "Revolutionize education with AI that adapts to every student's pace, virtual classrooms that feel real, and learning paths that guarantee better outcomes.",
+      description:
+        "Revolutionize education with AI that adapts to every student's pace, virtual classrooms that feel real, and learning paths that guarantee better outcomes.",
       features: ["Adaptive learning AI", "Virtual reality classes", "Progress analytics", "Gamified content"],
       growth: "28% YoY",
-      projects: "85+"
+      projects: "85+",
     },
     {
       icon: Heart,
       title: "Healthcare",
-      description: "Save lives and reduce costs with AI-powered diagnostics, secure telemedicine platforms, and patient management systems that healthcare providers trust.",
+      description:
+        "Save lives and reduce costs with AI-powered diagnostics, secure telemedicine platforms, and patient management systems that healthcare providers trust.",
       features: ["HIPAA compliance", "AI diagnostics", "Telemedicine", "Patient analytics"],
       growth: "31% YoY",
-      projects: "95+"
+      projects: "95+",
     },
     {
       icon: Factory,
       title: "Manufacturing",
-      description: "Industry 4.0 solutions with IoT integration, predictive maintenance, and supply chain optimization.",
+      description:
+        "Industry 4.0 solutions with IoT integration, predictive maintenance, and supply chain optimization.",
       features: ["IoT monitoring", "Predictive maintenance", "Quality control", "Supply chain optimization"],
       growth: "24% YoY",
-      projects: "70+"
+      projects: "70+",
     },
     {
       icon: Building,
@@ -48,7 +80,7 @@ export default function IndustrySolutions() {
       description: "PropTech innovations with virtual tours, smart contracts, and automated property management.",
       features: ["Virtual reality tours", "Smart contracts", "Property analytics", "Automated management"],
       growth: "29% YoY",
-      projects: "65+"
+      projects: "65+",
     },
     {
       icon: Truck,
@@ -56,15 +88,16 @@ export default function IndustrySolutions() {
       description: "Smart logistics with route optimization, fleet management, and real-time tracking technologies.",
       features: ["Route optimization", "Fleet management", "Real-time tracking", "Predictive delivery"],
       growth: "26% YoY",
-      projects: "80+"
+      projects: "80+",
     },
     {
       icon: Plane,
       title: "Travel & Tourism",
-      description: "Comprehensive travel platforms with booking systems, itinerary planning, and experience management.",
+      description:
+        "Comprehensive travel platforms with booking systems, itinerary planning, and experience management.",
       features: ["Smart booking", "Itinerary AI", "Experience curation", "Travel analytics"],
       growth: "33% YoY",
-      projects: "45+"
+      projects: "45+",
     },
     {
       icon: Utensils,
@@ -72,15 +105,16 @@ export default function IndustrySolutions() {
       description: "Restaurant tech with ordering systems, inventory management, and customer experience optimization.",
       features: ["Online ordering", "Inventory management", "Customer insights", "Delivery integration"],
       growth: "27% YoY",
-      projects: "60+"
+      projects: "60+",
     },
     {
       icon: Car,
       title: "Automotive",
-      description: "Connected vehicle platforms with fleet management, maintenance tracking, and smart mobility solutions.",
+      description:
+        "Connected vehicle platforms with fleet management, maintenance tracking, and smart mobility solutions.",
       features: ["Fleet management", "Maintenance tracking", "Connected vehicles", "Mobility analytics"],
       growth: "22% YoY",
-      projects: "40+"
+      projects: "40+",
     },
     {
       icon: TreePine,
@@ -88,7 +122,7 @@ export default function IndustrySolutions() {
       description: "Precision agriculture with IoT sensors, crop monitoring, and yield optimization technologies.",
       features: ["IoT crop monitoring", "Yield optimization", "Weather integration", "Farm analytics"],
       growth: "30% YoY",
-      projects: "35+"
+      projects: "35+",
     },
     {
       icon: Home,
@@ -96,7 +130,7 @@ export default function IndustrySolutions() {
       description: "IoT-enabled home automation with security systems, energy management, and intelligent controls.",
       features: ["Home automation", "Security systems", "Energy management", "Smart controls"],
       growth: "38% YoY",
-      projects: "55+"
+      projects: "55+",
     },
     {
       icon: GraduationCap,
@@ -104,7 +138,7 @@ export default function IndustrySolutions() {
       description: "Business automation with CRM systems, project management, and client communication platforms.",
       features: ["CRM integration", "Project management", "Client portals", "Automation tools"],
       growth: "25% YoY",
-      projects: "90+"
+      projects: "90+",
     },
     {
       icon: Briefcase,
@@ -112,7 +146,7 @@ export default function IndustrySolutions() {
       description: "Scalable business solutions with multi-tenancy, enterprise integrations, and advanced analytics.",
       features: ["Multi-tenant architecture", "Enterprise integrations", "Advanced analytics", "Auto-scaling"],
       growth: "41% YoY",
-      projects: "110+"
+      projects: "110+",
     },
     {
       icon: Film,
@@ -120,15 +154,16 @@ export default function IndustrySolutions() {
       description: "Content platforms with streaming technology, content management, and audience engagement tools.",
       features: ["Streaming technology", "Content management", "Audience analytics", "Monetization tools"],
       growth: "34% YoY",
-      projects: "50+"
+      projects: "50+",
     },
     {
       icon: Music,
       title: "Creative Industries",
-      description: "Digital platforms for artists, creators, and agencies with portfolio management and collaboration tools.",
+      description:
+        "Digital platforms for artists, creators, and agencies with portfolio management and collaboration tools.",
       features: ["Portfolio management", "Collaboration tools", "Creative workflows", "Client management"],
       growth: "32% YoY",
-      projects: "40+"
+      projects: "40+",
     },
     {
       icon: Users,
@@ -136,17 +171,18 @@ export default function IndustrySolutions() {
       description: "Community-driven platforms with social features, content moderation, and engagement analytics.",
       features: ["Community features", "Content moderation", "Engagement analytics", "Social commerce"],
       growth: "36% YoY",
-      projects: "75+"
+      projects: "75+",
     },
     {
       icon: Brain,
       title: "AI & Machine Learning",
-      description: "Intelligent systems with ML pipelines, data processing, and automated decision-making capabilities.",
+      description:
+        "Intelligent systems with ML pipelines, data processing, and automated decision-making capabilities.",
       features: ["ML pipelines", "Data processing", "Model deployment", "Automated insights"],
       growth: "45% YoY",
-      projects: "65+"
-    }
-  ];
+      projects: "65+",
+    },
+  ]
 
   return (
     <section id="services" className="py-24 bg-secondary/50" data-testid="industry-solutions-section">
@@ -155,23 +191,95 @@ export default function IndustrySolutions() {
           <div className="inline-flex items-center px-4 py-2 rounded-full glass mb-6">
             <span className="text-sm font-medium text-accent">🌍 Global Industry Coverage</span>
           </div>
-          <h2 className="font-display font-bold text-4xl md:text-7xl mb-8 tracking-tight" data-testid="industry-solutions-title">
-            Transforming Every 
+          <h2
+            className="font-display font-bold text-4xl md:text-7xl mb-8 tracking-tight"
+            data-testid="industry-solutions-title"
+          >
+            Transforming Every
             <span className="text-gradient"> Industry</span>
           </h2>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-light" data-testid="industry-solutions-subtitle">
-            From startups to Fortune 500 companies, we deliver enterprise-grade solutions across every business vertical with cutting-edge technology and measurable outcomes.
+          <p
+            className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-light"
+            data-testid="industry-solutions-subtitle"
+          >
+            From startups to Fortune 500 companies, we deliver enterprise-grade solutions across every business vertical
+            with cutting-edge technology and measurable outcomes.
           </p>
         </div>
-        
+
+        <div className="mb-20 animate-fade-up">
+          <div className="glass-intense rounded-3xl p-8 md:p-12 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-50"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-center mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 gradient-primary rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-accent uppercase tracking-wider">
+                    Full Spectrum Services
+                  </span>
+                  <div className="w-3 h-3 gradient-accent rounded-full animate-pulse"></div>
+                </div>
+              </div>
+
+              <div className="max-w-5xl mx-auto text-center">
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+                  We offer a <span className="text-primary font-semibold">full spectrum of services</span>, including
+                  software development, cloud infrastructure, IT consulting, and cybersecurity solutions such as
+                  penetration testing, vulnerability assessments, and security compliance.
+                </p>
+
+                <div className="flex items-center justify-center gap-4 mb-6">
+                  <div className="h-px bg-gradient-to-r from-transparent via-primary to-transparent flex-1 max-w-20"></div>
+                  <div className="w-2 h-2 gradient-primary rounded-full"></div>
+                  <div className="h-px bg-gradient-to-r from-transparent via-accent to-transparent flex-1 max-w-20"></div>
+                </div>
+
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                  Every project we undertake is built with <span className="text-accent font-semibold">innovation</span>
+                  , <span className="text-primary font-semibold">reliability</span>, and{" "}
+                  <span className="text-accent font-semibold">protection</span> in mind — ensuring that your technology
+                  not only works but stays secure.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div className="text-center p-4 rounded-xl bg-background/50 backdrop-blur-sm">
+                  <div className="w-8 h-8 gradient-primary rounded-lg mx-auto mb-2 flex items-center justify-center">
+                    <Blocks className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">Development</span>
+                </div>
+                <div className="text-center p-4 rounded-xl bg-background/50 backdrop-blur-sm">
+                  <div className="w-8 h-8 gradient-primary rounded-lg mx-auto mb-2 flex items-center justify-center">
+                    <Wifi className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">Cloud Infrastructure</span>
+                </div>
+                <div className="text-center p-4 rounded-xl bg-background/50 backdrop-blur-sm">
+                  <div className="w-8 h-8 gradient-primary rounded-lg mx-auto mb-2 flex items-center justify-center">
+                    <Brain className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">IT Consulting</span>
+                </div>
+                <div className="text-center p-4 rounded-xl bg-background/50 backdrop-blur-sm">
+                  <div className="w-8 h-8 gradient-primary rounded-lg mx-auto mb-2 flex items-center justify-center">
+                    <Shield className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">Cybersecurity</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {industries.map((industry, index) => {
-            const IconComponent = industry.icon;
+            const IconComponent = industry.icon
             return (
-              <div 
-                key={industry.title} 
+              <div
+                key={industry.title}
                 className="glass-intense rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover-lift group relative overflow-hidden"
-                data-testid={`industry-card-${industry.title.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
+                data-testid={`industry-card-${industry.title.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
                 role="article"
                 aria-labelledby={`industry-title-${industry.title.toLowerCase()}`}
               >
@@ -183,38 +291,46 @@ export default function IndustrySolutions() {
                     {industry.projects}
                   </span>
                 </div>
-                
+
                 <div className="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   <IconComponent className="w-8 h-8 text-white" />
                 </div>
-                
-                <h3 className="font-display font-bold text-2xl mb-4 group-hover:text-primary transition-colors" data-testid={`industry-title-${industry.title.toLowerCase()}`}>
+
+                <h3
+                  className="font-display font-bold text-2xl mb-4 group-hover:text-primary transition-colors"
+                  data-testid={`industry-title-${industry.title.toLowerCase()}`}
+                >
                   {industry.title}
                 </h3>
-                
-                <p className="text-muted-foreground mb-6 leading-relaxed" data-testid={`industry-description-${industry.title.toLowerCase()}`}>
+
+                <p
+                  className="text-muted-foreground mb-6 leading-relaxed"
+                  data-testid={`industry-description-${industry.title.toLowerCase()}`}
+                >
                   {industry.description}
                 </p>
-                
+
                 <div className="space-y-3">
                   {industry.features.map((feature, featureIndex) => (
-                    <div 
-                      key={featureIndex} 
+                    <div
+                      key={featureIndex}
                       className="flex items-center text-sm"
                       data-testid={`industry-feature-${industry.title.toLowerCase()}-${featureIndex}`}
                     >
                       <div className="w-2 h-2 gradient-accent rounded-full mr-3 flex-shrink-0"></div>
-                      <span className="text-muted-foreground group-hover:text-foreground transition-colors">{feature}</span>
+                      <span className="text-muted-foreground group-hover:text-foreground transition-colors">
+                        {feature}
+                      </span>
                     </div>
                   ))}
                 </div>
-                
+
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
               </div>
-            );
+            )
           })}
         </div>
       </div>
     </section>
-  );
+  )
 }
