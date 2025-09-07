@@ -61,6 +61,20 @@ interface QuotationAnalysis {
   recommendations: string[];
 }
 
+interface CloudSolutionResponse {
+  recommendation: string;
+  awsSolution: string;
+  gcpSolution: string;
+  nextSteps: string[];
+}
+
+interface ConsultationAnswers {
+  primaryGoal: string;
+  workloadType: string;
+  importantFactor: string;
+  customQuestion?: string;
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -70,7 +84,7 @@ const app = express();
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false }));
 
-// In your server/index.ts - update the CORS middleware
+// CORS middleware
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -102,7 +116,131 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY || "" 
 });
 
-// Main quotation generation function
+// AI Consultation function
+async function generateAIConsultation(answers: ConsultationAnswers): Promise<CloudSolutionResponse> {
+  try {
+    const systemPrompt = `You are Cehpoint's Senior Cloud Solutions Architect with deep expertise in AWS and GCP cloud services. Your role is to act as a trusted consultant for website visitors, providing personalized cloud architecture recommendations based on their specific needs.
+
+CONTEXT: The user has answered questions about their cloud requirements and provided additional context.
+
+USER RESPONSES:
+- Primary Goal: ${answers.primaryGoal}
+- Workload Type: ${answers.workloadType}  
+- Important Factor: ${answers.importantFactor}
+- Additional Context: ${answers.customQuestion || "No additional context provided"}
+
+INSTRUCTIONS:
+1. Analyze their responses to understand their technical requirements, business priorities, and constraints
+2. Provide specific, actionable cloud architecture recommendations for both AWS and GCP
+3. Focus on managed services that align with their stated priorities
+4. Include concrete service names, not just general categories
+5. Explain WHY each recommendation fits their specific needs
+6. Keep recommendations practical and implementation-focused
+
+RESPONSE FORMAT (JSON):
+{
+  "recommendation": "2-3 sentence executive summary of the recommended approach based on their specific needs",
+  "awsSolution": "Detailed AWS architecture recommendation with specific service names and brief rationale",
+  "gcpSolution": "Detailed GCP architecture recommendation with specific service names and brief rationale", 
+  "nextSteps": ["4-5 specific, actionable next steps for implementation"]
+}
+
+Be consultative, professional, and focus on delivering real business value. Avoid generic responses - tailor everything to their specific situation.`;
+
+    const userPrompt = `
+CLOUD CONSULTATION REQUEST:
+Primary Goal: ${answers.primaryGoal}
+Workload Type: ${answers.workloadType}
+Important Factor: ${answers.importantFactor}
+Additional Context: ${answers.customQuestion || 'None provided'}
+
+Please provide a comprehensive cloud architecture recommendation in the specified JSON format with specific AWS and GCP service recommendations tailored to these requirements.`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash-exp",
+      config: {
+        systemInstruction: systemPrompt,
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "object",
+          properties: {
+            recommendation: { type: "string" },
+            awsSolution: { type: "string" },
+            gcpSolution: { type: "string" },
+            nextSteps: {
+              type: "array",
+              items: { type: "string" }
+            }
+          },
+          required: ["recommendation", "awsSolution", "gcpSolution", "nextSteps"]
+        },
+      },
+      contents: userPrompt,
+    });
+
+    const rawJson = response.text;
+    console.log(`Gemini AI Consultation Response: ${rawJson}`);
+
+    if (rawJson) {
+      const consultation: CloudSolutionResponse = JSON.parse(rawJson);
+      return consultation;
+    } else {
+      throw new Error("Empty response from Gemini AI");
+    }
+  } catch (error) {
+    console.error("Error generating AI consultation:", error);
+    
+    // Fallback consultation based on basic analysis
+    return generateFallbackConsultation(answers);
+  }
+}
+
+// Fallback consultation generator
+function generateFallbackConsultation(answers: ConsultationAnswers): CloudSolutionResponse {
+  const goalMap: Record<string, string> = {
+    "cost-savings": "cost optimization and efficient resource utilization",
+    "scalability": "auto-scaling architecture with performance optimization",
+    "security": "security-first architecture with compliance controls",
+    "innovation": "AI/ML and analytics-driven solutions"
+  };
+
+  const workloadMap: Record<string, { aws: string[], gcp: string[] }> = {
+    "web-apps": {
+      aws: ["EC2", "ELB", "RDS", "CloudFront", "S3"],
+      gcp: ["Compute Engine", "Cloud Load Balancing", "Cloud SQL", "Cloud CDN", "Cloud Storage"]
+    },
+    "databases": {
+      aws: ["RDS", "DynamoDB", "Redshift", "ElastiCache"],
+      gcp: ["Cloud SQL", "Firestore", "BigQuery", "Memorystore"]
+    },
+    "ai-ml": {
+      aws: ["SageMaker", "Bedrock", "Lambda", "S3", "EC2"],
+      gcp: ["Vertex AI", "AutoML", "Cloud Functions", "BigQuery ML", "Compute Engine"]
+    },
+    "devops": {
+      aws: ["CodePipeline", "CodeBuild", "ECS", "ECR", "CloudFormation"],
+      gcp: ["Cloud Build", "Cloud Deploy", "GKE", "Artifact Registry", "Cloud Deployment Manager"]
+    }
+  };
+
+  const services = workloadMap[answers.workloadType] || workloadMap["web-apps"];
+  const goal = goalMap[answers.primaryGoal] || "balanced cloud architecture";
+
+  return {
+    recommendation: `Based on your focus on ${goal} for ${answers.workloadType} workloads, I recommend a managed services approach that prioritizes ${answers.importantFactor}. This will provide the scalability and reliability you need while optimizing for your key priorities.`,
+    awsSolution: `For AWS, I recommend using ${services.aws.join(", ")} as your core services. This combination provides excellent ${goal} with AWS's mature ecosystem. Start with ${services.aws[0]} for compute, integrate ${services.aws[1]} for networking, and leverage ${services.aws[2]} for data persistence. This architecture scales automatically and provides enterprise-grade reliability.`,
+    gcpSolution: `For GCP, consider ${services.gcp.join(", ")} as your primary stack. Google Cloud excels in ${goal} with innovative managed services. Begin with ${services.gcp[0]} for your workloads, utilize ${services.gcp[1]} for distribution, and implement ${services.gcp[2]} for data management. GCP's AI/ML integration and competitive pricing make it ideal for modern applications.`,
+    nextSteps: [
+      "Conduct a detailed assessment of your current infrastructure and requirements",
+      "Set up a proof-of-concept environment in your preferred cloud platform",
+      "Design a migration strategy with phased rollout approach",
+      "Implement monitoring and cost optimization from day one",
+      "Establish security and compliance frameworks for your workloads"
+    ]
+  };
+}
+
+// Main quotation generation function (existing)
 async function generateQuotation(request: QuotationRequest): Promise<QuotationAnalysis> {
   try {
     const systemPrompt = `You are an expert software development consultant and project estimator specializing in e-commerce, edutech, fintech, and various tech solutions. 
@@ -164,7 +302,7 @@ Additional Context: ${request.additionalContext || 'None provided'}
 Please provide a comprehensive quotation analysis in the specified JSON format with realistic cost estimates, timeline projections, and detailed recommendations.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-2.0-flash-exp",
       config: {
         systemInstruction: systemPrompt,
         responseMimeType: "application/json",
@@ -262,7 +400,7 @@ Please provide a comprehensive quotation analysis in the specified JSON format w
   }
 }
 
-// Fallback quotation generator
+// Fallback quotation generator (existing)
 function generateFallbackQuotation(request: QuotationRequest): QuotationAnalysis {
   // Basic cost estimation based on budget range and features
   const budgetMap: Record<string, number> = {
@@ -351,7 +489,9 @@ function generateFallbackQuotation(request: QuotationRequest): QuotationAnalysis
   };
 }
 
-// API Routes with proper method handling
+// API Routes
+
+// Quotation API route (existing)
 app.route("/api/quotation")
   .post(async (req, res) => {
     try {
@@ -368,6 +508,56 @@ app.route("/api/quotation")
       console.error('Quotation generation error:', error);
       res.status(500).json({ 
         error: "Unable to generate quotation at the moment. Please try again.",
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  })
+  .all((req, res) => {
+    res.status(405).json({ error: `Method ${req.method} not allowed` });
+  });
+
+// AI Consultation API route (fixed)
+app.route("/api/ai-consultation")
+  .post(async (req, res) => {
+    try {
+   //   console.log('POST /api/ai-consultation - Received body:', req.body);
+
+      // Validate that answers object exists
+      const { answers } = req.body;
+      
+      if (!answers) {
+        return res.status(400).json({ 
+          error: "Missing answers in request body" 
+        });
+      }
+
+      // Basic validation of required fields - now checking if arrays have content
+      if (!answers.primaryGoal || !Array.isArray(answers.primaryGoal) || answers.primaryGoal.length === 0) {
+        return res.status(400).json({ 
+          error: "Missing required answers: primaryGoal must be a non-empty array" 
+        });
+      }
+      
+      if (!answers.workloadType || !Array.isArray(answers.workloadType) || answers.workloadType.length === 0) {
+        return res.status(400).json({ 
+          error: "Missing required answers: workloadType must be a non-empty array" 
+        });
+      }
+      
+      if (!answers.importantFactor || !Array.isArray(answers.importantFactor) || answers.importantFactor.length === 0) {
+        return res.status(400).json({ 
+          error: "Missing required answers: importantFactor must be a non-empty array" 
+        });
+      }
+      
+      const consultation = await generateAIConsultation(answers);
+      
+  //    console.log('Sending AI consultation response:', consultation);
+      res.json(consultation);
+    } catch (error) {
+      console.error('AI consultation generation error:', error);
+      res.status(500).json({ 
+        error: "Unable to generate AI consultation at the moment. Please try again.",
         details: error instanceof Error ? error.message : 'Unknown error'
       });
     }
@@ -408,7 +598,7 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 if (!process.env.VERCEL) {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
-    console.log(`🚀 Quotation Server running on http://localhost:${PORT}`);
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
   });
 }

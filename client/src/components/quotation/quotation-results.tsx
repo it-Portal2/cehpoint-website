@@ -402,7 +402,7 @@ export default function QuotationResults({
     );
     const formattedCost = formatCurrency(convertedCost, selectedCurrency);
 
-    const message = `AI-Generated Project Quotation
+    const message = ` Project Quotation
 
 Client Details:
 ${quotation.contactName ? `Name: ${quotation.contactName}` : ""}
@@ -413,7 +413,7 @@ Project Overview:
 • Timeline: ${quotation.timeline}
 • Team Size: ${quotation.teamSize} developers
 
-AI Analysis:
+Analysis:
 ${quotation.aiAnalysis}
 
 Technology Stack:
@@ -432,10 +432,9 @@ ${index + 1}. ${milestone.milestone} (${milestone.duration})
 Dependencies:
 ${quotation.dependencies.map((dep) => `• ${dep}`).join("\n")}
 
-Risks:
+Risks & Considerations:
 ${quotation.risks.map((risk) => `• ${risk}`).join("\n")}
 
----
 Ready to start this project!`;
 
     const whatsappNumber = "919091156095";
